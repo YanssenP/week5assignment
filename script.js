@@ -28,7 +28,7 @@ addMovie(movie) {
 if (movie instanceof Movie) {
     this.movies.push(movie);
 } else {
-    throw new Error('You can only add an instance of Movie. argument is not a player: ${movie}'); //this error message will tell what we did wrong when using this code
+    throw new Error(`You can only add an instance of Movie. argument is not a movie: ${movie}`); //this error message will tell what we did wrong when using this code
   }
 }
 
@@ -76,7 +76,7 @@ class Menu {
             selection = this.showMainMenuOptions();
         } 
 
-        //if 0 is selecetd, the following message will show
+        //if 0 is selected, the following message will show
 
         alert('ASTALAVISTA, BABY!');
 
@@ -88,9 +88,9 @@ class Menu {
 showMainMenuOptions() {
     return prompt(`
 0) exit
-1) create a new genre
-2) view a genre
-3) delete a genre
+1) create new genre
+2) view genre
+3) delete genre
 4) display all genres
 `);
 
@@ -112,7 +112,7 @@ showGenreMenuOptions(genreInfo) {
 displayGenres() {
 let genreString = '';
 for (let i = 0; i < this.genres.length; i++) {
-genreString += i+ ')' + this.genres[i].name + '\n';    
+genreString += i+ ') ' + this.genres[i].name + '\n';    
 }
 //outside the loop, create an alert to be able to see all the genres
 alert(genreString);
@@ -130,24 +130,24 @@ viewGenre() {
 
 let index = prompt("Enter the index of the genre that you want to view");
 if (index > -1 && index < this.genres.length) {
-    this.selectionGenre = this.genres[index];
+    this.selectedGenre = this.genres[index];
     let description = 'Genre Name: ' + this.selectedGenre.name + '\n';
-    description += ' ' + this.selectedGenres.describe() + '\n' ;
 
 //add the description of all the movies to the genre by creating a loop
 
     for (let i = 0; i < this.selectedGenre.movies.length; i++) {
-        description += i + ')' + this.selectedGenre.movies[i].describe() + '\n';
+        description += i + ') ' + this.selectedGenre.movies[i].name 
+        + ' - ' + this.selectedGenre.movies [i].year + '\n';
     }
 }
 
 // implement a method to show genre menu options to display all the menu options for the genre
 let selection1 = this.showGenreMenuOptions(description);
 switch (selection1) {
-case '1' :
+case '1':
     this.createMovie();
     break;
-    case '2' :
+    case '2':
         this.deleteMovie();
 }
 
@@ -164,7 +164,7 @@ if (index > -1 && index < this.genres.length) {
 createMovie() {
     let name = prompt('Enter name for new movie:');
     let position = prompt('Enter position for new movie: ')
-    this.selectedGenre.addMovie(new Movie(name,year));
+    this.selectedGenre.movies.push(new Movie(name,year));
 }
 
 //delete movie method
